@@ -40,6 +40,7 @@ class paintFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Делаем ориентацию горизонтальной
         requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
 
         val blueBtn = view.findViewById<ImageButton>(R.id.blueColorImgButton)
@@ -48,18 +49,21 @@ class paintFragment : Fragment() {
         val saveBtn = view.findViewById<ImageButton>(R.id.saveButton)
         val paintCanvas = view.findViewById<RelativeLayout>(R.id.paintCanvas)
 
+        // Кнопка синего цвета
         blueBtn.setOnClickListener {
             //Toast.makeText(this, "Classic", Toast.LENGTH_SHORT).show()
             paintBrush.setColor(Color.BLUE)
             currentColor(paintBrush.color)
         }
 
+        // Кнопка чёрного цвета
         blackBtn.setOnClickListener {
             //Toast.makeText(this, "Чёрный бумер", Toast.LENGTH_SHORT).show()
             paintBrush.setColor(Color.BLACK)
             currentColor(paintBrush.color)
         }
 
+        // Кнопка стирания
         eraserBtn.setOnClickListener {
             //Toast.makeText(this, "Стёр", Toast.LENGTH_SHORT).show()
             PaintView.pathList.clear()
@@ -67,18 +71,21 @@ class paintFragment : Fragment() {
             path.reset()
         }
 
+        // Кнопка сохранения
         saveBtn.setOnClickListener {
+            // Конверт холста в битовую мапу
             val bitmap = getBitmapFromUiView(paintCanvas)
 
+            // Конверт битовой мапы в картинку и затем в байтовый массив
             val stream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
             val byteArray = stream.toByteArray()
 
+            // Закидываем битовый массив в бандл
             val bundle = Bundle()
-            //bundle.putParcelable("BitmapImage",bitmap)
-            //bundle.putString("Aboba", "aboba")
-            bundle.putByteArray("image",byteArray);
+            bundle.putByteArray("image", byteArray);
 
+            // Делаем переход в подтверждение сохранения и передаём наш бандл
             view.findNavController().navigate(R.id.action_paintFragment_to_acceptSaveFragment, bundle)
         }
     }

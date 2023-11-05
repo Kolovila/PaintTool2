@@ -38,23 +38,28 @@ class acceptSaveFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Далаем ориентацию вертикальной
         requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
         val saveBtn = view.findViewById<Button>(R.id.acceptSaveButton)
         val backBtn = view.findViewById<Button>(R.id.backButton)
 
-        //val aboba = requireArguments().getString("Aboba")
-        //val bitMapPaint = arguments?.getParcelable("BitmapImage")
-
+        // Получаем нашу картинку
         val byteArray: ByteArray? = arguments?.getByteArray("image")
+        // И конвертим обратно в картинку
         val bitMapPaint = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
 
+        // Кнопка сохранения
         saveBtn.setOnClickListener {
+            // Сохраняем картинку
             saveImage(bitMapPaint)
+            // И переходим в начало
             view.findNavController().navigate(R.id.action_acceptSaveFragment_to_mainFragment)
         }
 
+        // Кнопка возврата
         backBtn.setOnClickListener {
+            // Если юзеру не понравилось - пусть идёт и перерисует либо дорисует, его проблема чё он там понаделал
             view.findNavController().navigate(R.id.action_acceptSaveFragment_to_paintFragment)
         }
     }

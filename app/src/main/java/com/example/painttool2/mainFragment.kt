@@ -29,11 +29,14 @@ class mainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Делаем обычную ориентацию вертикальной
         requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
         val startPaintButton = view.findViewById<Button>(R.id.startPaintButton)
 
+        // Кнопка перехода на рисовалку
         startPaintButton.setOnClickListener {
+            // При нажатии кнопки - переходим в рисовалку
             view.findNavController().navigate(R.id.action_mainFragment_to_paintFragment)
         }
     }
