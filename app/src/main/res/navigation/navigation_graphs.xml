@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graphs"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.painttool2.mainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_paintFragment"
+            app:destination="@id/paintFragment"
+            app:popUpTo="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paintFragment"
+        android:name="com.example.painttool2.paintFragment"
+        android:label="fragment_paint"
+        tools:layout="@layout/fragment_paint" >
+        <action
+            android:id="@+id/action_paintFragment_to_acceptSaveFragment"
+            app:destination="@id/acceptSaveFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/acceptSaveFragment"
+        android:name="com.example.painttool2.acceptSaveFragment"
+        android:label="fragment_accept_save"
+        tools:layout="@layout/fragment_accept_save" >
+        <action
+            android:id="@+id/action_acceptSaveFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/acceptSaveFragment" />
+        <action
+            android:id="@+id/action_acceptSaveFragment_to_paintFragment"
+            app:destination="@id/paintFragment" />
+    </fragment>
+</navigation>
