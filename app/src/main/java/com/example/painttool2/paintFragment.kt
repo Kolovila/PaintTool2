@@ -92,7 +92,7 @@ class paintFragment : Fragment() {
 
     private fun getBitmapFromUiView(view: View?): Bitmap {
         // Определение битмапы по размерам оригинального холста
-        val returnedBitmap = Bitmap.createBitmap(requireView().width, requireView().height, Bitmap.Config.ARGB_8888)
+        val returnedBitmap = Bitmap.createBitmap(view!!.width, view!!.height, Bitmap.Config.ARGB_8888)
         // Привязываем canvas к нашей мапе
         val canvas = Canvas(returnedBitmap)
 
@@ -112,7 +112,7 @@ class paintFragment : Fragment() {
         canvas.drawColor(Color.alpha(0))
 
         // Отрисовываем view на canvas
-        requireView().draw(canvas)
+        view!!.draw(canvas)
 
         // Возвращаем битмапу
         return returnedBitmap
