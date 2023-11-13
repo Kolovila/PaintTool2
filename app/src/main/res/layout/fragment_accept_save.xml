@@ -8,10 +8,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/acceptSaveButton"
+        android:layout_above="@+id/drawnImage"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp"
         android:text="Вы точно уверены, что хотите сохранить это?" />
+
+    <ImageView
+        android:id="@+id/drawnImage"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_centerVertical="true"/>
 
     <Button
         android:id="@+id/acceptSaveButton"
@@ -20,6 +26,8 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="64dp"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/drawnImage"
         android:text="Да" />
 
     <Button
@@ -29,6 +37,8 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="64dp"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/drawnImage"
         android:text="Нет,\nперерисовать" />
 
 </RelativeLayout>

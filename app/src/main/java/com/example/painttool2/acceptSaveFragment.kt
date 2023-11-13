@@ -18,7 +18,11 @@ import java.io.FileOutputStream
 import java.io.OutputStream
 import android.content.ContentResolver
 import android.content.pm.ActivityInfo
+import android.widget.ImageView
 import androidx.navigation.findNavController
+import com.itextpdf.kernel.geom.PageSize
+import com.itextpdf.text.Document
+import com.itextpdf.text.Rectangle
 
 
 class acceptSaveFragment : Fragment() {
@@ -43,11 +47,15 @@ class acceptSaveFragment : Fragment() {
 
         val saveBtn = view.findViewById<Button>(R.id.acceptSaveButton)
         val backBtn = view.findViewById<Button>(R.id.backButton)
+        val drawnImage = view.findViewById<ImageView>(R.id.drawnImage)
 
         // Получаем нашу картинку
         val byteArray: ByteArray? = arguments?.getByteArray("image")
         // И конвертим обратно в картинку
         val bitMapPaint = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
+
+        // Отрисовываем нашу картинку как предпросмотр сохранения
+        drawnImage.setImageBitmap(bitMapPaint)
 
         // Кнопка сохранения
         saveBtn.setOnClickListener {
