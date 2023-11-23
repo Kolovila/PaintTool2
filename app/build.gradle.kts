@@ -37,6 +37,7 @@ android {
 
 dependencies {
 
+    implementation("androidx.compose.ui:ui-graphics-android:1.5.4")
     val nav_version = "2.3.5"
 
     implementation("androidx.core:core-ktx:1.9.0")

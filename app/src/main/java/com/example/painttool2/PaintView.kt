@@ -7,14 +7,21 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.view.View;
+import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.graphics.drawscope.Stroke
 import com.example.painttool2.paintFragment.Companion.paintBrush
 import com.example.painttool2.paintFragment.Companion.path
+
 
 class PaintView : View{
 
     var params : ViewGroup.LayoutParams? = null
+
+    private val TOUCH_TOLERANCE = 4f
+    private var mX: Float = 0f
+    private var mY: Float = 0f
+
 
     companion object {
         var pathList = ArrayList<Path>()
@@ -50,12 +57,14 @@ class PaintView : View{
 
         when(event.action) {
             MotionEvent.ACTION_DOWN -> {
-                path.moveTo(x,y)
+                touchStart(x,y)
+                //path.moveTo(x,y)
                 return true
             }
 
             MotionEvent.ACTION_MOVE -> {
-                path.lineTo(x,y)
+                touchMove(x,y)
+                //path.lineTo(x,y)
                 pathList.add(path)
                 colorList.add(currentBrush)
             }
@@ -72,4 +81,33 @@ class PaintView : View{
             invalidate()
         }
     }
+
+    private fun touchStart(x: Float, y: Float) {
+        path = Path()
+        //val fp = Stroke(currentBrush.toFloat(), 8f, path)
+        //paths.add(fp)
+
+        path.reset()
+
+        path.moveTo(x, y)
+
+        mX = x
+        mY = y
+    }
+    
+    private fun touchMove(x: Float, y: Float) {
+        val dx: Float = Math.abs(x - mX)
+        val dy: Float = Math.abs(y - mY)
+        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+            path.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2)
+            mX = x
+            mY = y
+        }
+    }
+
+    /*
+    private fun touchUp() {
+        path.lineTo(mX, mY)
+    }
+     */
 }
