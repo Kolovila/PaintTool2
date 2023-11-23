@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.graphics.drawscope.Stroke
 import com.example.painttool2.paintFragment.Companion.paintBrush
 import com.example.painttool2.paintFragment.Companion.path
+import kotlin.math.abs
 
 
 class PaintView : View{
@@ -68,6 +69,10 @@ class PaintView : View{
                 pathList.add(path)
                 colorList.add(currentBrush)
             }
+
+            MotionEvent.ACTION_UP -> {
+                touchUp()
+            }
             else -> return false
         }
         postInvalidate()
@@ -84,8 +89,6 @@ class PaintView : View{
 
     private fun touchStart(x: Float, y: Float) {
         path = Path()
-        //val fp = Stroke(currentBrush.toFloat(), 8f, path)
-        //paths.add(fp)
 
         path.reset()
 
@@ -96,8 +99,8 @@ class PaintView : View{
     }
     
     private fun touchMove(x: Float, y: Float) {
-        val dx: Float = Math.abs(x - mX)
-        val dy: Float = Math.abs(y - mY)
+        val dx: Float = abs(x - mX)
+        val dy: Float = abs(y - mY)
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
             path.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2)
             mX = x
@@ -105,9 +108,7 @@ class PaintView : View{
         }
     }
 
-    /*
     private fun touchUp() {
         path.lineTo(mX, mY)
     }
-     */
 }
